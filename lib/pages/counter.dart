@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:m3/counter_storage.dart';
+import 'package:m3/storages/counter_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CounterPage extends StatelessWidget {
@@ -47,33 +47,31 @@ class _CounterState extends State<Counter> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: _increamentCounter,
-              child: const Text('Increment'),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Count: ',
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: _increamentCounter,
+            child: const Text('Increment'),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Count: ',
+              ),
+              Text(
+                '$_counter',
+                style: TextStyle(
+                  fontFamily: GoogleFonts.firaMono(
+                    fontWeight: FontWeight.bold,
+                  ).fontFamily,
                 ),
-                Text(
-                  '$_counter',
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.firaMono(
-                      fontWeight: FontWeight.bold,
-                    ).fontFamily,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

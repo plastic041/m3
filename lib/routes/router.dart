@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:m3/counter.dart';
-import 'package:m3/home.dart';
+
+import '../pages/counter.dart';
+import '../pages/home.dart';
+import '../pages/tweet_list_view.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -10,6 +12,7 @@ import 'package:m3/home.dart';
       initial: true,
       children: [
         AutoRoute(page: CounterPage),
+        AutoRoute(page: TweetPage),
       ],
     ),
   ],

@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
     return AutoTabsRouter(
       routes: [
         CounterRoute(),
+        const TweetRoute(),
       ],
       builder: (context, child, animation) {
         final tabRouter = AutoTabsRouter.of(context);

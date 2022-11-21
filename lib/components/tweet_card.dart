@@ -21,6 +21,7 @@ class TweetCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
+        fit: StackFit.loose,
         children: [
           Positioned(
             width: 48,
@@ -35,10 +36,12 @@ class TweetCard extends StatelessWidget {
                 SizedBox(
                   height: 8.0,
                 ),
-                VerticalDivider(
-                  thickness: 2,
-                  width: 1,
-                  color: Colors.grey,
+                Flexible(
+                  child: VerticalDivider(
+                    thickness: 2,
+                    width: 1,
+                    color: Colors.grey,
+                  ),
                 )
               ],
             ),
@@ -48,7 +51,6 @@ class TweetCard extends StatelessWidget {
               left: 56,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -83,7 +85,6 @@ class TweetCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  // text content
                   getTweetContent(),
                   style: const TextStyle(
                     fontSize: 16.0,

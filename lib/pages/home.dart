@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
       routes: [
         CounterRoute(),
         const TweetRoute(),
+        AnimationRoute(),
       ],
       builder: (context, child, animation) {
         final tabRouter = AutoTabsRouter.of(context);
@@ -36,6 +37,10 @@ class HomePage extends StatelessWidget {
               BottomNavigationBarItem(
                 label: 'Home',
                 icon: Icon(Icons.home),
+              ),
+              BottomNavigationBarItem(
+                label: 'Tweet',
+                icon: Icon(Icons.message),
               ),
               BottomNavigationBarItem(
                 label: 'Animation',

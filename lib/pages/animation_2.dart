@@ -54,9 +54,6 @@ class _Anim2State extends State<Anim2> {
             ..setEntry(3, 2, 0.1)
             ..rotateX(_rotateX)
             ..rotateY(_rotateY);
-
-          print("---");
-          printMatrix(_matrix);
         });
       },
       onPanEnd: (details) {
@@ -67,17 +64,7 @@ class _Anim2State extends State<Anim2> {
           _rotateY = 0.0;
           _matrix = Matrix4.identity()..setEntry(3, 2, 0.1);
         });
-        print("end");
-        // pretty print _matrix
-        printMatrix(_matrix);
       },
-      // child: Container(
-      //   transform: _matrix,
-      //   transformAlignment: Alignment.center,
-      //   color: Colors.green,
-      //   width: 200,
-      //   height: 200,
-      // ),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 50),
         transform: _matrix,
@@ -91,10 +78,6 @@ class _Anim2State extends State<Anim2> {
       ),
     );
   }
-}
-
-double invLerp(double value, double min, double max) {
-  return (value - min) / (max - min);
 }
 
 void printMatrix(Matrix4 matrix) {

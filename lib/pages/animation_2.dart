@@ -98,9 +98,8 @@ class _Anim2State extends State<Anim2> {
             offset: Offset(_translateX, _translateY),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.blue,
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue[400]),
               width: 200,
               height: 200,
             ),

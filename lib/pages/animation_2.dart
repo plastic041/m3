@@ -27,7 +27,10 @@ class _Anim2State extends State<Anim2> {
   double _rotateX = 0.0;
   double _rotateY = 0.0;
 
-  final double _radiusSquared = 0.5 * 0.5;
+  Curve _curve = Curves.easeOut;
+  Duration _duration = const Duration(milliseconds: 200);
+
+  final double _radiusSquared = 1 * 1;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +44,15 @@ class _Anim2State extends State<Anim2> {
           // so we need to normalize the vector
           if (_dx * _dx + _dy * _dy > _radiusSquared) {
             final double angle = atan2(_dy, _dx);
-            _dx = 0.5 * cos(angle);
-            _dy = 0.5 * sin(angle);
+            _dx = 1 * cos(angle);
+            _dy = 1 * sin(angle);
           }
 
           _rotateX = _dy;
           _rotateY = _dx;
+
+          _curve = Curves.easeOut;
+          _duration = const Duration(milliseconds: 200);
         });
       },
       onPanEnd: (details) {
@@ -55,14 +61,17 @@ class _Anim2State extends State<Anim2> {
           _dy = 0.0;
           _rotateX = 0.0;
           _rotateY = 0.0;
+
+          _curve = Curves.elasticOut;
+          _duration = const Duration(milliseconds: 500);
         });
       },
       child: Transform(
         transform: Matrix4.identity()..setEntry(3, 2, 0.002),
         alignment: Alignment.center,
         child: AnimatedContainer(
-          curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 200),
+          curve: _curve,
+          duration: _duration,
           transform: Matrix4.identity()
             ..rotateX(_rotateX)
             ..rotateY(_rotateY),

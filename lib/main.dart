@@ -23,7 +23,7 @@ class App extends StatelessWidget {
   }
 
   ThemeData _buildTheme(brightness) {
-    var baseTheme = ThemeData(
+    ThemeData baseTheme = ThemeData(
       brightness: brightness,
       primarySwatch: Colors.cyan,
       useMaterial3: true,

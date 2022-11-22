@@ -29,8 +29,6 @@ class _Anim2State extends State<Anim2> {
 
   final double _radiusSquared = 0.5 * 0.5;
 
-  Matrix4 _matrix = Matrix4.identity();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -49,11 +47,6 @@ class _Anim2State extends State<Anim2> {
 
           _rotateX = _dy;
           _rotateY = _dx;
-
-          _matrix = Matrix4.identity()
-            ..setEntry(3, 2, 0.1)
-            ..rotateX(_rotateX)
-            ..rotateY(_rotateY);
         });
       },
       onPanEnd: (details) {
@@ -62,18 +55,27 @@ class _Anim2State extends State<Anim2> {
           _dy = 0.0;
           _rotateX = 0.0;
           _rotateY = 0.0;
-          _matrix = Matrix4.identity()..setEntry(3, 2, 0.1);
         });
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 50),
-        transform: _matrix,
-        transformAlignment: Alignment.center,
+      child: Transform(
+        transform: Matrix4.identity()..setEntry(3, 2, 0.002),
         alignment: Alignment.center,
-        child: Container(
-          color: Colors.green,
-          width: 200,
-          height: 200,
+        child: AnimatedContainer(
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 200),
+          transform: Matrix4.identity()
+            ..rotateX(_rotateX)
+            ..rotateY(_rotateY),
+          transformAlignment: Alignment.center,
+          alignment: Alignment.center,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: Colors.blue,
+            ),
+            width: 200,
+            height: 200,
+          ),
         ),
       ),
     );

@@ -36,6 +36,9 @@ class _Anim2State extends State<Anim2> {
   final double _radius = 1;
   late double _radiusSquared;
 
+  double _touchX = 0.0;
+  double _touchY = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -67,6 +70,9 @@ class _Anim2State extends State<Anim2> {
 
           _translateX = -_dx * 20;
           _translateY = _dy * 20;
+
+          _touchX = details.localPosition.dx;
+          _touchY = details.localPosition.dy;
         });
       },
       onPanEnd: (details) {
@@ -77,34 +83,55 @@ class _Anim2State extends State<Anim2> {
           _rotateY = 0.0;
           _translateX = 0.0;
           _translateY = 0.0;
+          _touchX = 0.0;
+          _touchY = 0.0;
 
           _curve = Curves.elasticOut;
           _duration = const Duration(milliseconds: 800);
         });
       },
-      child: Transform(
-        transform: Matrix4.identity()..setEntry(3, 2, 0.002),
-        alignment: Alignment.center,
-        child: AnimatedContainer(
-          curve: _curve,
-          duration: _duration,
-          transform: Matrix4.identity()
-            ..translate(_translateX, _translateY)
-            ..rotateX(_rotateX)
-            ..rotateY(_rotateY),
-          transformAlignment: Alignment.center,
-          alignment: Alignment.center,
-          child: Transform.translate(
-            offset: Offset(_translateX, _translateY),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.blue[400]),
-              width: 200,
-              height: 200,
+      child: Stack(
+        children: [
+          Transform(
+            transform: Matrix4.identity()..setEntry(3, 2, 0.002),
+            alignment: Alignment.center,
+            child: AnimatedContainer(
+              curve: _curve,
+              duration: _duration,
+              transform: Matrix4.identity()
+                ..translate(_translateX, _translateY)
+                ..rotateX(_rotateX)
+                ..rotateY(_rotateY),
+              transformAlignment: Alignment.center,
+              alignment: Alignment.center,
+              child: Transform.translate(
+                offset: Offset(_translateX, _translateY),
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue[400]),
+                  width: 200,
+                  height: 200,
+                ),
+              ),
             ),
           ),
-        ),
+          Visibility(
+            visible: _touchX != 0.0 && _touchY != 0.0,
+            child: Positioned(
+              top: _touchY - 10,
+              left: _touchX - 10,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(9999),
+                  color: Colors.yellow,
+                ),
+                width: 20,
+                height: 20,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

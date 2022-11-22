@@ -29,6 +29,8 @@ class _Anim2State extends State<Anim2> {
 
   final double _radiusSquared = 0.5 * 0.5;
 
+  Matrix4 _matrix = Matrix4.identity();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -47,6 +49,14 @@ class _Anim2State extends State<Anim2> {
 
           _rotateX = _dy;
           _rotateY = _dx;
+
+          _matrix = Matrix4.identity()
+            ..setEntry(3, 2, 0.1)
+            ..rotateX(_rotateX)
+            ..rotateY(_rotateY);
+
+          print("---");
+          printMatrix(_matrix);
         });
       },
       onPanEnd: (details) {
@@ -55,19 +65,29 @@ class _Anim2State extends State<Anim2> {
           _dy = 0.0;
           _rotateX = 0.0;
           _rotateY = 0.0;
+          _matrix = Matrix4.identity()..setEntry(3, 2, 0.1);
         });
+        print("end");
+        // pretty print _matrix
+        printMatrix(_matrix);
       },
+      // child: Container(
+      //   transform: _matrix,
+      //   transformAlignment: Alignment.center,
+      //   color: Colors.green,
+      //   width: 200,
+      //   height: 200,
+      // ),
       child: AnimatedContainer(
-        curve: Curves.easeOut,
         duration: const Duration(milliseconds: 50),
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, 0.01)
-          ..rotateX(_rotateX)
-          ..rotateY(_rotateY),
-        transformAlignment: FractionalOffset.center,
-        color: Colors.green,
-        width: 200,
-        height: 200,
+        transform: _matrix,
+        transformAlignment: Alignment.center,
+        alignment: Alignment.center,
+        child: Container(
+          color: Colors.green,
+          width: 200,
+          height: 200,
+        ),
       ),
     );
   }
@@ -75,4 +95,35 @@ class _Anim2State extends State<Anim2> {
 
 double invLerp(double value, double min, double max) {
   return (value - min) / (max - min);
+}
+
+void printMatrix(Matrix4 matrix) {
+  print(matrix.row0
+      .toString()
+      .split(",")
+      .map(
+        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
+      )
+      .join(" "));
+  print(matrix.row1
+      .toString()
+      .split(",")
+      .map(
+        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
+      )
+      .join(" "));
+  print(matrix.row2
+      .toString()
+      .split(",")
+      .map(
+        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
+      )
+      .join(" "));
+  print(matrix.row3
+      .toString()
+      .split(",")
+      .map(
+        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
+      )
+      .join(" "));
 }

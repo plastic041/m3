@@ -32,15 +32,12 @@ class _AnimState extends State<Anim> {
 
           _hue += details.delta.dx * 0.1;
           _hue = _hue % 360.0;
-
-          // print(details.delta.dx);
-          // _opacity = invLerp(details.delta.dx.clamp(0, 200), 0, 200);
         });
       },
       child: Opacity(
         opacity: _opacity,
         child: Container(
-          color: HSVColor.fromAHSV(1.0, _hue, 1.0, 1.0).toColor(),
+          color: HSVColor.fromAHSV(_opacity, _hue, 1.0, 1.0).toColor(),
           width: 200,
           height: 200,
         ),

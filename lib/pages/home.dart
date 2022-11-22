@@ -15,7 +15,8 @@ class HomePage extends StatelessWidget {
       routes: [
         CounterRoute(),
         const TweetRoute(),
-        AnimationRoute(),
+        const AnimationRoute(),
+        const Animation2Route(),
       ],
       builder: (context, child, animation) {
         final tabRouter = AutoTabsRouter.of(context);
@@ -43,11 +44,17 @@ class HomePage extends StatelessWidget {
                 icon: Icon(Icons.message),
               ),
               BottomNavigationBarItem(
-                label: 'Animation',
+                label: 'Anim',
                 icon: Icon(Icons.animation),
               ),
+              BottomNavigationBarItem(
+                label: 'Anim 2',
+                icon: Icon(Icons.abc),
+              ),
             ],
-            selectedItemColor: Colors.amber[800],
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.blue,
+            selectedItemColor: Colors.amber,
           ),
         );
       },

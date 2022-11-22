@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class Animation3Page extends StatelessWidget {
@@ -22,49 +20,69 @@ class Anim3 extends StatefulWidget {
 
 class _Anim3State extends State<Anim3> {
   double _dx = 0.0;
-  double _dy = 0.0;
+  double _x = 0.0;
 
-  double _rotateX = 0.0;
-  double _rotateY = 0.0;
+  Duration _duration = const Duration(milliseconds: 500);
 
-  final double _radiusSquared = 0.5 * 0.5;
+  final double _speedMultiplier = 0.5;
+  final int sensitivity = 1;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onPanUpdate: (details) {
-        setState(() {
-          _dx -= details.delta.dx / 100;
-          _dy += details.delta.dy / 100;
+    return Column(
+      children: [
+        GestureDetector(
+          onHorizontalDragStart: (details) {
+            setState(() {
+              _duration = const Duration(milliseconds: 0);
+            });
+          },
+          onHorizontalDragUpdate: (details) {
+            setState(() {
+              _dx = details.delta.dx;
+              _x += _dx;
+            });
+          },
+          onHorizontalDragEnd: (details) {
+            double? velocity = details.primaryVelocity;
+            if (velocity == null) {
+              return;
+            }
 
-          // if x^2 + y^2 > 0.5^2, then we are outside the circle
-          // so we need to normalize the vector
-          if (_dx * _dx + _dy * _dy > _radiusSquared) {
-            final double angle = atan2(_dy, _dx);
-            _dx = 0.5 * cos(angle);
-            _dy = 0.5 * sin(angle);
-          }
+            if (velocity > sensitivity || velocity < -sensitivity) {
+              setState(() {
+                double dx = velocity * _speedMultiplier;
 
-          _rotateX = _dy;
-          _rotateY = _dx;
-        });
-      },
-      child: Transform(
-        transform: Matrix4.identity()
-          ..setEntry(3, 2, 0.001)
-          ..rotateX(_rotateX)
-          ..rotateY(_rotateY),
-        alignment: Alignment.center,
-        child: Container(
-          color: Colors.green,
-          width: 200,
-          height: 200,
+                _dx = dx;
+                _x = _x + dx;
+              });
+            }
+
+            setState(() {
+              _duration = const Duration(milliseconds: 500);
+            });
+          },
+          // onHorizontalDragEnd: (details) {
+          child: AnimatedContainer(
+            curve: Curves.easeOutQuad,
+            transform: Matrix4.translationValues(_x, 0.0, 0.0),
+            duration: _duration,
+            child: Container(
+              color: Colors.green,
+              width: 200,
+              height: 200,
+            ),
+          ),
         ),
-      ),
+        ElevatedButton(
+          onPressed: (() {
+            setState(() {
+              _x = 0.0;
+            });
+          }),
+          child: const Text("reset"),
+        )
+      ],
     );
   }
-}
-
-double invLerp(double value, double min, double max) {
-  return (value - min) / (max - min);
 }

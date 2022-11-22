@@ -5,6 +5,7 @@ import '../pages/home.dart';
 import '../pages/tweet_list_view.dart';
 import '../pages/animation.dart';
 import '../pages/animation_2.dart';
+import '../pages/animation_3.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -17,6 +18,7 @@ import '../pages/animation_2.dart';
         AutoRoute(page: TweetPage),
         AutoRoute(page: AnimationPage),
         AutoRoute(page: Animation2Page),
+        AutoRoute(page: Animation3Page),
       ],
     ),
   ],

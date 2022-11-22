@@ -81,34 +81,3 @@ class _Anim2State extends State<Anim2> {
     );
   }
 }
-
-void printMatrix(Matrix4 matrix) {
-  print(matrix.row0
-      .toString()
-      .split(",")
-      .map(
-        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
-      )
-      .join(" "));
-  print(matrix.row1
-      .toString()
-      .split(",")
-      .map(
-        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
-      )
-      .join(" "));
-  print(matrix.row2
-      .toString()
-      .split(",")
-      .map(
-        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
-      )
-      .join(" "));
-  print(matrix.row3
-      .toString()
-      .split(",")
-      .map(
-        (e) => e.substring(0, min(4, e.length)).padRight(4, "0"),
-      )
-      .join(" "));
-}

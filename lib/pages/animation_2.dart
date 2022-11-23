@@ -1,6 +1,9 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
+import '../utils/easeOutSine.dart';
 
 class Animation2Page extends StatelessWidget {
   const Animation2Page({super.key});
@@ -33,16 +36,19 @@ class _Anim2State extends State<Anim2> {
   Curve _curve = Curves.easeOut;
   Duration _duration = const Duration(milliseconds: 100);
 
-  final double _radius = 1;
-  late double _radiusSquared;
+  final double _lengthMultiplier = 60;
+  final double _angleMultiplier = 0.6;
 
   double _touchX = 0.0;
   double _touchY = 0.0;
 
+  late final double _diagonalMax;
+
   @override
   void initState() {
     super.initState();
-    _radiusSquared = _radius * _radius;
+    _diagonalMax = sqrt(pow(window.physicalSize.longestSide / 2, 2) +
+        pow(window.physicalSize.shortestSide / 2, 2));
   }
 
   @override
@@ -54,22 +60,22 @@ class _Anim2State extends State<Anim2> {
       },
       onPanUpdate: (details) {
         setState(() {
-          _dx -= details.delta.dx / 100;
-          _dy += details.delta.dy / 100;
+          _dx -= details.delta.dx;
+          _dy += details.delta.dy;
 
-          // if x^2 + y^2 > 0.5^2, then we are outside the circle
-          // so we need to normalize the vector
-          if (_dx * _dx + _dy * _dy > _radiusSquared) {
-            final double angle = atan2(_dy, _dx);
-            _dx = _radius * cos(angle);
-            _dy = _radius * sin(angle);
-          }
+          final double angle = atan2(_dy, _dx);
+          double distance = sqrt(_dx * _dx + _dy * _dy);
+          double distanceNormalized =
+              min(distance, _diagonalMax) / _diagonalMax;
+          double distanceEased = easeOutSine(distanceNormalized);
+          double x = cos(angle) * distanceEased;
+          double y = sin(angle) * distanceEased;
 
-          _rotateX = _dy;
-          _rotateY = _dx;
+          _rotateX = y * _angleMultiplier;
+          _rotateY = x * _angleMultiplier;
 
-          _translateX = -_dx * 20;
-          _translateY = _dy * 20;
+          _translateX = -x * _lengthMultiplier;
+          _translateY = y * _lengthMultiplier;
 
           _touchX = details.localPosition.dx;
           _touchY = details.localPosition.dy;
@@ -104,15 +110,12 @@ class _Anim2State extends State<Anim2> {
                 ..rotateY(_rotateY),
               transformAlignment: Alignment.center,
               alignment: Alignment.center,
-              child: Transform.translate(
-                offset: Offset(_translateX, _translateY),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.blue[400]),
-                  width: 200,
-                  height: 200,
-                ),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.blue[400]),
+                width: 200,
+                height: 200,
               ),
             ),
           ),

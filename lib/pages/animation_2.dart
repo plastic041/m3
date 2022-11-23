@@ -36,7 +36,7 @@ class _Anim2State extends State<Anim2> {
   Curve _curve = Curves.easeOut;
   Duration _duration = const Duration(milliseconds: 100);
 
-  final double _lengthMultiplier = 60;
+  final double _lengthMultiplier = 200;
   final double _angleMultiplier = 0.6;
 
   double _touchX = 0.0;

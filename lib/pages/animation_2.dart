@@ -33,7 +33,6 @@ class _Anim2State extends State<Anim2> {
   double _translateX = 0.0;
   double _translateY = 0.0;
 
-  Curve _curve = Curves.easeOut;
   Duration _duration = const Duration(milliseconds: 100);
 
   final double _lengthMultiplier = 200;
@@ -55,8 +54,7 @@ class _Anim2State extends State<Anim2> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onPanStart: (details) {
-        _curve = Curves.easeOut;
-        _duration = const Duration(milliseconds: 100);
+        _duration = const Duration(milliseconds: 0);
       },
       onPanUpdate: (details) {
         setState(() {
@@ -92,7 +90,6 @@ class _Anim2State extends State<Anim2> {
           _touchX = 0.0;
           _touchY = 0.0;
 
-          _curve = Curves.elasticOut;
           _duration = const Duration(milliseconds: 800);
         });
       },
@@ -102,7 +99,7 @@ class _Anim2State extends State<Anim2> {
             transform: Matrix4.identity()..setEntry(3, 2, 0.002),
             alignment: Alignment.center,
             child: AnimatedContainer(
-              curve: _curve,
+              curve: Curves.elasticOut,
               duration: _duration,
               transform: Matrix4.identity()
                 ..translate(_translateX, _translateY)
@@ -114,8 +111,8 @@ class _Anim2State extends State<Anim2> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.blue[400]),
-                width: 200,
-                height: 200,
+                width: 100,
+                height: 100,
               ),
             ),
           ),

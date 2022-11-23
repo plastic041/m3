@@ -1,20 +1,14 @@
 import "package:flutter/material.dart";
-import 'dart:math';
 
-// getTweetContent
-// get randomly "long tweet" or "short tweet"
-String getTweetContent() {
-  final random = Random();
-  final isLongTweet = random.nextBool();
-  if (isLongTweet) {
-    return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nunc nisl eget nisl. Donec auctor, nisl eget ultricies lacinia, nisl nunc aliquam nisl, eget aliquam nunc nisl eget nisl.";
-  } else {
-    return "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
-  }
-}
+import 'package:m3/pages/tweet_list_view.dart';
 
 class TweetCard extends StatelessWidget {
-  const TweetCard({super.key});
+  const TweetCard({
+    super.key,
+    required this.post,
+  });
+
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +18,15 @@ class TweetCard extends StatelessWidget {
         fit: StackFit.loose,
         children: [
           Positioned(
-            width: 48,
+            width: 32,
             left: 0,
             top: 0,
             bottom: 0,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: const [
                 CircleAvatar(
-                  radius: 24.0,
+                  radius: 12.0,
                 ),
                 SizedBox(
                   height: 8.0,
@@ -48,16 +43,17 @@ class TweetCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              left: 56,
+              left: 36,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       // user info
-                      "Username",
-                      style: TextStyle(
+                      post.displayName,
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
@@ -65,18 +61,13 @@ class TweetCard extends StatelessWidget {
                     const SizedBox(
                       width: 4.0,
                     ),
-                    Icon(
-                      Icons.verified,
-                      color: Colors.blue.shade400,
-                      size: 16.0,
-                    ),
                     const SizedBox(
                       width: 4.0,
                     ),
-                    const Text(
+                    Text(
                       // user info
-                      "@username",
-                      style: TextStyle(
+                      post.acct,
+                      style: const TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.normal,
                         color: Colors.grey,
@@ -85,11 +76,12 @@ class TweetCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  getTweetContent(),
+                  post.content,
                   style: const TextStyle(
-                    fontSize: 16.0,
+                    fontSize: 12.0,
                     fontWeight: FontWeight.normal,
                   ),
+                  textAlign: TextAlign.left,
                 ),
               ],
             ),

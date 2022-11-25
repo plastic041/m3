@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:m3/utils/time_ago.dart';
 
 import '../domain/entities/post.dart';
 
@@ -24,20 +25,23 @@ class PostCard extends StatelessWidget {
             bottom: 0,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 CircleAvatar(
+                  foregroundImage: NetworkImage(
+                    post.avatar,
+                  ),
                   radius: 16,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
-                Flexible(
+                const Flexible(
                   child: VerticalDivider(
                     thickness: 2,
                     width: 1,
-                    color: Colors.grey,
+                    color: Colors.black38,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -72,11 +76,21 @@ class PostCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
-                          color: Colors.grey,
+                          color: Colors.black38,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      width: 4.0,
+                    ),
+                    Text(timeAgo(post.createdAt),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black54,
+                          overflow: TextOverflow.ellipsis,
+                        ))
                   ],
                 ),
                 Text(

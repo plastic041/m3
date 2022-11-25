@@ -4,6 +4,8 @@ class Post {
   final String acct;
   final String displayName;
   final String content;
+  final DateTime createdAt;
+  final String avatar;
 
   const Post({
     required this.id,
@@ -11,6 +13,8 @@ class Post {
     required this.acct,
     required this.displayName,
     required this.content,
+    required this.createdAt,
+    required this.avatar,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class Post {
       acct: json['account']['acct'],
       displayName: json['account']['display_name'],
       content: json['content'],
+      createdAt: DateTime.parse(json['created_at']),
+      avatar: json['account']['avatar'],
     );
   }
 
@@ -30,4 +36,24 @@ class Post {
 
   @override
   int get hashCode => id.hashCode;
+
+  Post copyWith({
+    String? id,
+    String? username,
+    String? acct,
+    String? displayName,
+    String? content,
+    DateTime? createdAt,
+    String? avatar,
+  }) {
+    return Post(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      acct: acct ?? this.acct,
+      displayName: displayName ?? this.displayName,
+      content: content ?? this.content,
+      createdAt: createdAt ?? this.createdAt,
+      avatar: avatar ?? this.avatar,
+    );
+  }
 }

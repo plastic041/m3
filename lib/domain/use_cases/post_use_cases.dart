@@ -40,12 +40,9 @@ Future<List<Post>> fetchPost() async {
           )
           .trim();
 
-      return Post(
-        id: post.id,
-        acct: post.acct,
+      return post.copyWith(
         content: parsedContent,
         displayName: displayNameWithoutEmoji,
-        username: post.username,
       );
     }).toList();
 

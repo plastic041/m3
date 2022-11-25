@@ -12,12 +12,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: [
-        CounterRoute(),
-        const TweetRoute(),
-        const AnimationRoute(),
-        const Animation2Route(),
-        const Animation3Route(),
+      routes: const [
+        PostRoute(),
+        FidgetRoute(),
       ],
       builder: (context, child, animation) {
         final tabRouter = AutoTabsRouter.of(context);
@@ -37,10 +34,6 @@ class HomePage extends StatelessWidget {
             },
             items: const [
               BottomNavigationBarItem(
-                label: 'Home',
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
                 label: 'Tweet',
                 icon: Icon(Icons.message),
               ),
@@ -48,18 +41,8 @@ class HomePage extends StatelessWidget {
                 label: 'Anim',
                 icon: Icon(Icons.animation),
               ),
-              BottomNavigationBarItem(
-                label: 'Anim 2',
-                icon: Icon(Icons.abc),
-              ),
-              BottomNavigationBarItem(
-                label: 'Anim 3',
-                icon: Icon(Icons.timer),
-              ),
             ],
             type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.blue,
-            selectedItemColor: Colors.amber,
           ),
         );
       },

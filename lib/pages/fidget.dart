@@ -3,27 +3,27 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../utils/easeOutSine.dart';
+import '../utils/ease_out_sine.dart';
 
-class Animation2Page extends StatelessWidget {
-  const Animation2Page({super.key});
+class FidgetPage extends StatelessWidget {
+  const FidgetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Anim2(),
+      child: Fidget(),
     );
   }
 }
 
-class Anim2 extends StatefulWidget {
-  const Anim2({super.key});
+class Fidget extends StatefulWidget {
+  const Fidget({super.key});
 
   @override
-  State<Anim2> createState() => _Anim2State();
+  State<Fidget> createState() => _FidgetState();
 }
 
-class _Anim2State extends State<Anim2> {
+class _FidgetState extends State<Fidget> {
   double _dx = 0.0;
   double _dy = 0.0;
 

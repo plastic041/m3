@@ -32,7 +32,7 @@ class App extends StatelessWidget {
     );
 
     return baseTheme.copyWith(
-      textTheme: GoogleFonts.poppinsTextTheme(baseTheme.textTheme),
+      textTheme: GoogleFonts.notoSansTextTheme(baseTheme.textTheme),
     );
   }
 }

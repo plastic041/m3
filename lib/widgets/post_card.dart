@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 
-import 'package:m3/pages/tweet_list_view.dart';
+import '../domain/entities/post.dart';
 
-class TweetCard extends StatelessWidget {
-  const TweetCard({
+class PostCard extends StatelessWidget {
+  const PostCard({
     super.key,
     required this.post,
   });
@@ -13,7 +13,7 @@ class TweetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Stack(
         fit: StackFit.loose,
         children: [
@@ -26,10 +26,10 @@ class TweetCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: const [
                 CircleAvatar(
-                  radius: 12.0,
+                  radius: 16,
                 ),
                 SizedBox(
-                  height: 8.0,
+                  height: 4,
                 ),
                 Flexible(
                   child: VerticalDivider(
@@ -43,34 +43,38 @@ class TweetCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(
-              left: 36,
+              left: 40,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Text(
-                      // user info
-                      post.displayName,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
+                    Flexible(
+                      child: Text(
+                        // user info
+                        post.displayName,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          overflow: TextOverflow.ellipsis,
+                          color: Colors.black87,
+                        ),
                       ),
                     ),
                     const SizedBox(
                       width: 4.0,
                     ),
-                    const SizedBox(
-                      width: 4.0,
-                    ),
-                    Text(
-                      // user info
-                      post.acct,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey,
+                    Flexible(
+                      child: Text(
+                        // user info
+                        post.acct,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ],
@@ -78,7 +82,7 @@ class TweetCard extends StatelessWidget {
                 Text(
                   post.content,
                   style: const TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.normal,
                   ),
                   textAlign: TextAlign.left,

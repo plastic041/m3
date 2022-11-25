@@ -11,68 +11,85 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i5;
-import 'package:flutter/material.dart' as _i6;
+import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:auto_route/empty_router_widgets.dart' as _i2;
+import 'package:flutter/material.dart' as _i7;
 
-import '../pages/counter.dart' as _i2;
-import '../pages/fidget.dart' as _i4;
-import '../pages/home.dart' as _i1;
-import '../pages/post_list_view.dart' as _i3;
+import '../domain/entities/post.dart' as _i8;
+import '../pages/fidget.dart' as _i3;
+import '../pages/post.dart' as _i4;
+import '../pages/post_detail.dart' as _i5;
+import '../pages/tab_navigation.dart' as _i1;
 
-class AppRouter extends _i5.RootStackRouter {
-  AppRouter([_i6.GlobalKey<_i6.NavigatorState>? navigatorKey])
+class AppRouter extends _i6.RootStackRouter {
+  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i5.PageFactory> pagesMap = {
-    HomeRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
+  final Map<String, _i6.PageFactory> pagesMap = {
+    TabNavigationRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i1.HomePage(),
+        child: const _i1.TabNavigationPage(),
       );
     },
-    CounterRoute.name: (routeData) {
-      final args = routeData.argsAs<CounterRouteArgs>(
-          orElse: () => const CounterRouteArgs());
-      return _i5.MaterialPageX<dynamic>(
+    PostRouter.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i2.CounterPage(key: args.key),
+        child: const _i2.EmptyRouterPage(),
+      );
+    },
+    FidgetRouter.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i3.FidgetPage(),
       );
     },
     PostRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.PostPage(),
+        child: const _i4.PostPage(),
       );
     },
-    FidgetRoute.name: (routeData) {
-      return _i5.MaterialPageX<dynamic>(
+    PostDetailsRoute.name: (routeData) {
+      final args = routeData.argsAs<PostDetailsRouteArgs>();
+      return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.FidgetPage(),
+        child: _i5.PostDetailsPage(
+          key: args.key,
+          post: args.post,
+        ),
       );
     },
   };
 
   @override
-  List<_i5.RouteConfig> get routes => [
-        _i5.RouteConfig(
-          HomeRoute.name,
+  List<_i6.RouteConfig> get routes => [
+        _i6.RouteConfig(
+          TabNavigationRoute.name,
           path: '/',
           children: [
-            _i5.RouteConfig(
-              CounterRoute.name,
-              path: 'counter-page',
-              parent: HomeRoute.name,
+            _i6.RouteConfig(
+              PostRouter.name,
+              path: 'post',
+              parent: TabNavigationRoute.name,
+              children: [
+                _i6.RouteConfig(
+                  PostRoute.name,
+                  path: '',
+                  parent: PostRouter.name,
+                ),
+                _i6.RouteConfig(
+                  PostDetailsRoute.name,
+                  path: ':post',
+                  parent: PostRouter.name,
+                ),
+              ],
             ),
-            _i5.RouteConfig(
-              PostRoute.name,
-              path: 'post-page',
-              parent: HomeRoute.name,
-            ),
-            _i5.RouteConfig(
-              FidgetRoute.name,
-              path: 'fidget-page',
-              parent: HomeRoute.name,
+            _i6.RouteConfig(
+              FidgetRouter.name,
+              path: 'fidget',
+              parent: TabNavigationRoute.name,
             ),
           ],
         )
@@ -80,62 +97,85 @@ class AppRouter extends _i5.RootStackRouter {
 }
 
 /// generated route for
-/// [_i1.HomePage]
-class HomeRoute extends _i5.PageRouteInfo<void> {
-  const HomeRoute({List<_i5.PageRouteInfo>? children})
+/// [_i1.TabNavigationPage]
+class TabNavigationRoute extends _i6.PageRouteInfo<void> {
+  const TabNavigationRoute({List<_i6.PageRouteInfo>? children})
       : super(
-          HomeRoute.name,
+          TabNavigationRoute.name,
           path: '/',
           initialChildren: children,
         );
 
-  static const String name = 'HomeRoute';
+  static const String name = 'TabNavigationRoute';
 }
 
 /// generated route for
-/// [_i2.CounterPage]
-class CounterRoute extends _i5.PageRouteInfo<CounterRouteArgs> {
-  CounterRoute({_i6.Key? key})
+/// [_i2.EmptyRouterPage]
+class PostRouter extends _i6.PageRouteInfo<void> {
+  const PostRouter({List<_i6.PageRouteInfo>? children})
       : super(
-          CounterRoute.name,
-          path: 'counter-page',
-          args: CounterRouteArgs(key: key),
+          PostRouter.name,
+          path: 'post',
+          initialChildren: children,
         );
 
-  static const String name = 'CounterRoute';
-}
-
-class CounterRouteArgs {
-  const CounterRouteArgs({this.key});
-
-  final _i6.Key? key;
-
-  @override
-  String toString() {
-    return 'CounterRouteArgs{key: $key}';
-  }
+  static const String name = 'PostRouter';
 }
 
 /// generated route for
-/// [_i3.PostPage]
-class PostRoute extends _i5.PageRouteInfo<void> {
+/// [_i3.FidgetPage]
+class FidgetRouter extends _i6.PageRouteInfo<void> {
+  const FidgetRouter()
+      : super(
+          FidgetRouter.name,
+          path: 'fidget',
+        );
+
+  static const String name = 'FidgetRouter';
+}
+
+/// generated route for
+/// [_i4.PostPage]
+class PostRoute extends _i6.PageRouteInfo<void> {
   const PostRoute()
       : super(
           PostRoute.name,
-          path: 'post-page',
+          path: '',
         );
 
   static const String name = 'PostRoute';
 }
 
 /// generated route for
-/// [_i4.FidgetPage]
-class FidgetRoute extends _i5.PageRouteInfo<void> {
-  const FidgetRoute()
-      : super(
-          FidgetRoute.name,
-          path: 'fidget-page',
+/// [_i5.PostDetailsPage]
+class PostDetailsRoute extends _i6.PageRouteInfo<PostDetailsRouteArgs> {
+  PostDetailsRoute({
+    _i7.Key? key,
+    required _i8.Post post,
+  }) : super(
+          PostDetailsRoute.name,
+          path: ':post',
+          args: PostDetailsRouteArgs(
+            key: key,
+            post: post,
+          ),
         );
 
-  static const String name = 'FidgetRoute';
+  static const String name = 'PostDetailsRoute';
+}
+
+class PostDetailsRouteArgs {
+  const PostDetailsRouteArgs({
+    this.key,
+    required this.post,
+  });
+
+  final _i7.Key? key;
+
+  final _i8.Post post;
+
+  @override
+  String toString() {
+    return 'PostDetailsRouteArgs{key: $key, post: $post}';
+  }
 }

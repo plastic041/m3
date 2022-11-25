@@ -4,15 +4,6 @@ import '../domain/entities/post.dart';
 import '../domain/use_cases/post_use_cases.dart';
 import '../widgets/post_card.dart';
 
-class PostPage extends StatelessWidget {
-  const PostPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const PostListView();
-  }
-}
-
 class PostListView extends StatefulWidget {
   const PostListView({
     Key? key,

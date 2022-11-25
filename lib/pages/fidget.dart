@@ -10,8 +10,13 @@ class FidgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Fidget(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Fidget'),
+      ),
+      body: const Center(
+        child: Fidget(),
+      ),
     );
   }
 }

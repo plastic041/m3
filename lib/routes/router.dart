@@ -4,7 +4,7 @@ import 'package:auto_route/empty_router_widgets.dart';
 import '../pages/fidget.dart';
 import '../pages/tab_navigation.dart';
 import '../pages/post_detail.dart';
-import '../pages/post.dart';
+import '../pages/posts.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -16,11 +16,11 @@ import '../pages/post.dart';
       children: [
         AutoRoute(
           page: EmptyRouterPage,
-          path: 'post',
-          name: 'PostRouter',
+          path: 'posts',
+          name: 'PostsRootRouter',
           children: [
             AutoRoute(
-              page: PostPage,
+              page: PostsPage,
               path: '',
             ),
             AutoRoute(

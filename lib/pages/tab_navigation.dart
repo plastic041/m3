@@ -13,7 +13,7 @@ class TabNavigationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoTabsRouter(
       routes: const [
-        PostRouter(),
+        PostsRootRouter(),
         FidgetRouter(),
       ],
       builder: (context, child, animation) {

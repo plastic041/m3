@@ -5,8 +5,8 @@ import '../routes/router.gr.dart';
 import '../utils/time_ago.dart';
 import '../domain/entities/post.dart';
 
-class PostCard extends StatelessWidget {
-  const PostCard({
+class PostListTile extends StatelessWidget {
+  const PostListTile({
     super.key,
     required this.post,
   });
@@ -94,13 +94,15 @@ class PostCard extends StatelessWidget {
                       const SizedBox(
                         width: 4.0,
                       ),
-                      Text(timeAgo(post.createdAt),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black54,
-                            overflow: TextOverflow.ellipsis,
-                          ))
+                      Text(
+                        timeAgo(post.createdAt),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black54,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
                     ],
                   ),
                   Text(

@@ -27,9 +27,12 @@ Future<List<Post>> fetchPost() async {
       final String parsedContent = document
           .querySelectorAll('p')
           .map(
-            (e) => e.text,
+            (e) => e.innerHtml,
           )
-          .join("\n")
+          .map(
+            (e) => e.replaceAll(r"<br>", "\n"),
+          )
+          .join("\n\n")
           .trim();
 
       // remove :emoji:s from displayName

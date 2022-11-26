@@ -17,8 +17,8 @@ import 'package:flutter/material.dart' as _i7;
 
 import '../domain/entities/post.dart' as _i8;
 import '../pages/fidget.dart' as _i3;
-import '../pages/post.dart' as _i4;
 import '../pages/post_detail.dart' as _i5;
+import '../pages/posts.dart' as _i4;
 import '../pages/tab_navigation.dart' as _i1;
 
 class AppRouter extends _i6.RootStackRouter {
@@ -33,7 +33,7 @@ class AppRouter extends _i6.RootStackRouter {
         child: const _i1.TabNavigationPage(),
       );
     },
-    PostRouter.name: (routeData) {
+    PostsRootRouter.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.EmptyRouterPage(),
@@ -45,10 +45,10 @@ class AppRouter extends _i6.RootStackRouter {
         child: const _i3.FidgetPage(),
       );
     },
-    PostRoute.name: (routeData) {
+    PostsRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.PostPage(),
+        child: const _i4.PostsPage(),
       );
     },
     PostDetailsRoute.name: (routeData) {
@@ -70,19 +70,19 @@ class AppRouter extends _i6.RootStackRouter {
           path: '/',
           children: [
             _i6.RouteConfig(
-              PostRouter.name,
-              path: 'post',
+              PostsRootRouter.name,
+              path: 'posts',
               parent: TabNavigationRoute.name,
               children: [
                 _i6.RouteConfig(
-                  PostRoute.name,
+                  PostsRoute.name,
                   path: '',
-                  parent: PostRouter.name,
+                  parent: PostsRootRouter.name,
                 ),
                 _i6.RouteConfig(
                   PostDetailsRoute.name,
                   path: ':post',
-                  parent: PostRouter.name,
+                  parent: PostsRootRouter.name,
                 ),
               ],
             ),
@@ -111,15 +111,15 @@ class TabNavigationRoute extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.EmptyRouterPage]
-class PostRouter extends _i6.PageRouteInfo<void> {
-  const PostRouter({List<_i6.PageRouteInfo>? children})
+class PostsRootRouter extends _i6.PageRouteInfo<void> {
+  const PostsRootRouter({List<_i6.PageRouteInfo>? children})
       : super(
-          PostRouter.name,
-          path: 'post',
+          PostsRootRouter.name,
+          path: 'posts',
           initialChildren: children,
         );
 
-  static const String name = 'PostRouter';
+  static const String name = 'PostsRootRouter';
 }
 
 /// generated route for
@@ -135,15 +135,15 @@ class FidgetRouter extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.PostPage]
-class PostRoute extends _i6.PageRouteInfo<void> {
-  const PostRoute()
+/// [_i4.PostsPage]
+class PostsRoute extends _i6.PageRouteInfo<void> {
+  const PostsRoute()
       : super(
-          PostRoute.name,
+          PostsRoute.name,
           path: '',
         );
 
-  static const String name = 'PostRoute';
+  static const String name = 'PostsRoute';
 }
 
 /// generated route for

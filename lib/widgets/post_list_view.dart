@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../domain/entities/post.dart';
 import '../domain/use_cases/post_use_cases.dart';
-import '../widgets/post_card.dart';
+import 'post_list_tile.dart';
 
 class PostListView extends StatefulWidget {
   const PostListView({
@@ -54,7 +54,7 @@ class _PostListViewState extends State<PostListView> {
                   shrinkWrap: true,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return PostCard(
+                    return PostListTile(
                       post: snapshot.data![index],
                     );
                   },

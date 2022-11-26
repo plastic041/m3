@@ -14,7 +14,12 @@ class PostDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text(
+          "스레드",
+        ),
+        centerTitle: false,
+      ),
       body: PostDetail(
         post: post,
       ),

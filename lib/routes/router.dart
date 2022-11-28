@@ -23,7 +23,8 @@ import '../pages/posts.dart';
               page: PostsPage,
               path: '',
             ),
-            AutoRoute(
+            CustomRoute(
+              transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
               page: PostDetailsPage,
               path: ':post',
             ),

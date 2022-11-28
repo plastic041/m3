@@ -53,12 +53,15 @@ class AppRouter extends _i6.RootStackRouter {
     },
     PostDetailsRoute.name: (routeData) {
       final args = routeData.argsAs<PostDetailsRouteArgs>();
-      return _i6.MaterialPageX<dynamic>(
+      return _i6.CustomPage<dynamic>(
         routeData: routeData,
         child: _i5.PostDetailsPage(
           key: args.key,
           post: args.post,
         ),
+        transitionsBuilder: _i6.TransitionsBuilders.slideLeftWithFade,
+        opaque: true,
+        barrierDismissible: false,
       );
     },
   };

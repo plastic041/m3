@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' show parse;
+import 'package:m3/env.dart';
 
 import '../entities/post.dart';
 
@@ -12,26 +12,20 @@ Future<List<Post>> fetchPost() async {
     "local": "true",
   });
   final http.Response response = await http.get(uri, headers: {
-    'Authorization': 'Bearer ${dotenv.env['MASTODON_BEARER_TOKEN']}',
+    'Authorization': 'Bearer $mastodonBearerToken',
   });
 
   if (response.statusCode == 200) {
     final List<dynamic> postsRaw = jsonDecode(response.body);
 
-    var posts = postsRaw
-        .map(
-      (dynamic post) => Post.fromJson(post),
-    )
-        .map((Post post) {
+    var posts = postsRaw.map((dynamic post) {
+      return Post.fromJson(post);
+    }).map((Post post) {
       final document = parse(post.content);
       final String parsedContent = document
           .querySelectorAll('p')
-          .map(
-            (e) => e.innerHtml,
-          )
-          .map(
-            (e) => e.replaceAll(r"<br>", "\n"),
-          )
+          .map((e) => e.innerHtml)
+          .map((e) => e.replaceAll(r"<br>", "\n"))
           .join("\n\n")
           .trim();
 

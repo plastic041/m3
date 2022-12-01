@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import '../routes/router.gr.dart';
 import '../utils/time_ago.dart';
@@ -15,6 +16,44 @@ class PostListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget html = Html(
+      data: post.content,
+      style: {
+        'html': Style(
+          padding: EdgeInsets.zero,
+          margin: Margins.zero,
+          fontSize: FontSize(16),
+          fontWeight: FontWeight.w400,
+        ),
+        'body': Style(
+          padding: EdgeInsets.zero,
+          margin: Margins.zero,
+        ),
+        'img': Style(
+          display: Display.inline,
+          padding: EdgeInsets.zero,
+          margin: Margins.zero,
+        ),
+        'p': Style(
+          padding: EdgeInsets.zero,
+          margin: Margins.zero,
+          display: Display.block,
+          fontSize: FontSize(16.0),
+          fontWeight: FontWeight.w400,
+          textOverflow: TextOverflow.fade,
+        ),
+        'a': Style(
+          color: Colors.blue,
+        ),
+        'text': Style(
+          padding: EdgeInsets.zero,
+          margin: Margins.zero,
+          display: Display.inline,
+          fontSize: FontSize(16.0),
+        ),
+      },
+    );
+
     return InkWell(
       onTap: () {
         context.router.push(
@@ -105,14 +144,15 @@ class PostListTile extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text(
-                    post.content,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
+                  // Text(
+                  //   post.content,
+                  //   style: const TextStyle(
+                  //     fontSize: 16.0,
+                  //     fontWeight: FontWeight.normal,
+                  //   ),
+                  //   textAlign: TextAlign.left,
+                  // ),
+                  html
                 ],
               ),
             ),

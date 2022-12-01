@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' show parse;
 import 'package:m3/env.dart';
 
 import '../entities/post.dart';
@@ -18,30 +17,7 @@ Future<List<Post>> fetchPost() async {
   if (response.statusCode == 200) {
     final List<dynamic> postsRaw = jsonDecode(response.body);
 
-    var posts = postsRaw.map((dynamic post) {
-      return Post.fromJson(post);
-    }).map((Post post) {
-      final document = parse(post.content);
-      final String parsedContent = document
-          .querySelectorAll('p')
-          .map((e) => e.innerHtml)
-          .map((e) => e.replaceAll(r"<br>", "\n"))
-          .join("\n\n")
-          .trim();
-
-      // remove :emoji:s from displayName
-      final displayNameWithoutEmoji = post.displayName
-          .replaceAll(
-            RegExp(r':[^:]+:'),
-            '',
-          )
-          .trim();
-
-      return post.copyWith(
-        content: parsedContent,
-        displayName: displayNameWithoutEmoji,
-      );
-    }).toList();
+    List<Post> posts = postsRaw.map((post) => Post.fromJson(post)).toList();
 
     return posts;
   } else {

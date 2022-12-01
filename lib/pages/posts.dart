@@ -6,6 +6,12 @@ class PostsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PostListView();
+    return Scaffold(
+      body: PostListView(),
+      appBar: AppBar(
+        title: Text('Posts'),
+      ),
+      drawer: Drawer(),
+    );
   }
 }

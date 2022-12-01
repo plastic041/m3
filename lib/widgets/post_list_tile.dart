@@ -144,15 +144,7 @@ class PostListTile extends StatelessWidget {
                       )
                     ],
                   ),
-                  // Text(
-                  //   post.content,
-                  //   style: const TextStyle(
-                  //     fontSize: 16.0,
-                  //     fontWeight: FontWeight.normal,
-                  //   ),
-                  //   textAlign: TextAlign.left,
-                  // ),
-                  html
+                  html,
                 ],
               ),
             ),
